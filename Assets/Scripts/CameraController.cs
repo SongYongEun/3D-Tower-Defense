@@ -19,19 +19,22 @@ public class CameraController : MonoBehaviour
         if (!doMoveMent)
             return;
 
-        if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - pansBorderThickness)
+        if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
         }
-        if (Input.GetKey(KeyCode.S) || Input.mousePosition.y <= pansBorderThickness)
+
+        if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.back * panSpeed * Time.deltaTime, Space.World);
         }
-        if (Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - pansBorderThickness)
+
+        if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
         }
-        if (Input.GetKey(KeyCode.A) || Input.mousePosition.x <= pansBorderThickness)
+
+        if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
         }
