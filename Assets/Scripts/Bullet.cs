@@ -39,6 +39,9 @@ public class Bullet : MonoBehaviour
         GameObject effectIns = Instantiate(ImpactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 2f);
 
+        BuildManager.instance.accessMoney++;
+        BuildManager.instance.moneyText.text = BuildManager.instance.accessMoney.ToString();
+
         Destroy(target.gameObject);
         Destroy(gameObject);
     }

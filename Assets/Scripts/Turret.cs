@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Animations;
 public class Turret : MonoBehaviour
 {
     private Transform target;
@@ -18,10 +18,14 @@ public class Turret : MonoBehaviour
     public float turnSpeed = 10f;
 
     public GameObject bulletPrefab;
+    public GameObject muzzleEffect;
     public Transform firePoint;
+
+    Animator ani;
 
     void Start()
     {
+        ani = GetComponent<Animator>();
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -64,7 +68,7 @@ public class Turret : MonoBehaviour
 
         if (fireTimer <= 0f)
         {
-            Shoot();
+            ani.SetTrigger("Fire");
             fireTimer = 1f / fireRate;
         }
 
@@ -72,12 +76,15 @@ public class Turret : MonoBehaviour
 
     }
 
+
+    // 애니메이션 이벤트로 실행
     void Shoot()
     {
+        //Instantiate(muzzleEffect, firePoint.position, Quaternion.identity);
         GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
-        if(bullet != null)
+        if (bullet != null)
         {
             bullet.Seek(target);
         }

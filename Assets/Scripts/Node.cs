@@ -6,8 +6,10 @@ public class Node : MonoBehaviour
 {
     public Color hoverColor;
     public Vector3 positionOffset;
+    public GameObject Shop;
 
     private GameObject turret;
+    public GameObject selectFx;
 
     private void OnMouseDown()
     {
@@ -17,8 +19,14 @@ public class Node : MonoBehaviour
             return;
         }
 
-        GameObject turretToBuild = BuildManager.instance.GetTurretToBuild();
-        turret = Instantiate(turretToBuild, transform.position + positionOffset, transform.rotation);
+        Shop.SetActive(true);
+        selectFx.SetActive(true);
+        Shop.GetComponent<Shop>().NodeSet(transform);
+    }
+
+    public void turretSet(GameObject _turret)
+    {
+        turret = _turret;
     }
 
 }

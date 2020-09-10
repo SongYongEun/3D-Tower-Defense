@@ -8,10 +8,11 @@ public class WaveSpawner : MonoBehaviour
 
     public Transform spawnPoint;
 
-    public float timeBetweenWaves = 5f;
+    public float timeBetweenWaves = 10f;
     private float spawnTime = 2f;
 
     public Text spawnTimerText;
+    public Text waveText;
 
     private int waveIndex = 0;
     
@@ -19,6 +20,7 @@ public class WaveSpawner : MonoBehaviour
     {
         spawnTime -= Time.deltaTime;
         spawnTimerText.text = Mathf.Round(spawnTime).ToString();
+        waveText.text = waveIndex.ToString() + " WAVE";
 
         if (spawnTime <=0f)
         {

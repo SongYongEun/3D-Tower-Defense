@@ -44,13 +44,15 @@ public class CameraController : MonoBehaviour
         if(scroll > 0)
         {
             if(transform.position.y > minY)
-                transform.Translate(Vector3.down * panSpeed * 10 * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.down * panSpeed * 3 * Time.deltaTime, Space.World);
+            else transform.position = new Vector3(transform.position.x, minY, transform.position.z);
         }
 
         if(scroll < 0)
         {
             if(transform.position.y < maxY)
-                transform.Translate(Vector3.up * panSpeed * 10 * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.up * panSpeed * 3 * Time.deltaTime, Space.World);
+            else transform.position = new Vector3(transform.position.x , maxY, transform.position.z);
         }
     }
 }
