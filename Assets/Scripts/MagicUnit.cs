@@ -98,6 +98,13 @@ public class MagicUnit : MonoBehaviour
     }
 
 
+    IEnumerator attackCoroutine(float _damage, float _delayTime)
+    {
+        
+        yield return new WaitForSeconds(_delayTime);
+    }
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
