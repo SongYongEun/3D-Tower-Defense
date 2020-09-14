@@ -24,7 +24,7 @@ public class WaveSpawner : MonoBehaviour
     private JsonManager jm;
     private EnemyData ed;
 
-    private void Awake()
+    private void Start()
     {
         jm = JsonManager.instance.GetComponent<JsonManager>();
 
@@ -36,7 +36,7 @@ public class WaveSpawner : MonoBehaviour
         if (waveIndex < ed.getWaveCount())
         {
             spawnTimerText.text = Mathf.Round(spawnTime).ToString();
-            waveText.text = waveIndex.ToString() + " WAVE";
+            waveText.text = waveIndex.ToString();
 
             if (spawnTime <= 0f)
             {
@@ -57,7 +57,7 @@ public class WaveSpawner : MonoBehaviour
         for(int i=0; i < waveIndex; i++)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
 
         startSpawn = false;
@@ -73,7 +73,7 @@ public class WaveSpawner : MonoBehaviour
                 Instantiate(normalEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 break;
             case Enemy.EnemyType.Flying:
-                Instantiate(flyEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                Instantiate(flyEnemyPrefab, new Vector3(spawnPoint.position.x , 1.1f, spawnPoint.position.z), spawnPoint.rotation);
                 break;
             case Enemy.EnemyType.Hard:
                 Instantiate(hardEnemyPrefab, spawnPoint.position, spawnPoint.rotation);

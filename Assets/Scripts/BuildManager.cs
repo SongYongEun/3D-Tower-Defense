@@ -24,6 +24,8 @@ public class BuildManager : MonoBehaviour
         }
 
         instance = this;
+
+        moneyText.text = money.ToString();
     }
 
     public GameObject gunUnit;

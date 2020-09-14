@@ -25,6 +25,7 @@ public class Shop : MonoBehaviour
         }
 
         BuildManager.instance.accessMoney -= BuildManager.instance.TurretSpawnMoney;
+        BuildManager.instance.moneyText.text = BuildManager.instance.accessMoney.ToString();
 
         GameObject turretToBuild = BuildManager.instance.gunUnit;
         Instantiate(turretToBuild, node.position, node.rotation);
@@ -45,6 +46,7 @@ public class Shop : MonoBehaviour
         }
 
         BuildManager.instance.accessMoney -= BuildManager.instance.MagicSpawnMoney;
+        BuildManager.instance.moneyText.text = BuildManager.instance.accessMoney.ToString();
 
         GameObject turretToBuild = BuildManager.instance.magicUnit;
         Instantiate(turretToBuild, node.position, node.rotation);
