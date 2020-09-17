@@ -11,6 +11,7 @@ public class CannonUnit : Unit
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.instance.AddEffectAudio(gameObject.GetComponent<AudioSource>());
         isSpeedUpgrade = false;
         isDamageUpgrade = false;
         damage = 4f;
@@ -21,6 +22,8 @@ public class CannonUnit : Unit
     // Update is called once per frame
     void Update()
     {
+        if (Camera.main.GetComponent<CameraController>().GetCameraEvent()) return;
+
         if (target == null)
             return;
 
@@ -41,7 +44,9 @@ public class CannonUnit : Unit
 
     void CannonShoot()
     {
-        GameObject cannonGO = Instantiate(cannonPrefab, cannonPoint.position, cannonPoint.rotation);
+        gameObject.GetComponent<AudioSource>().Play();
+        GameObject cannonGO = CannonBallObjectPool.GetObject();
+        cannonGO.transform.position = cannonPoint.position;
         CannonBall cannonBall = cannonGO.GetComponent<CannonBall>();
         //cannonBall.SetBulletDamage(damage);
 

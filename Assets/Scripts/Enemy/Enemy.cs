@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
 
     private EnemyType et;
 
-    private Transform target;
+    protected Transform target;
 
     private int wavePointIndex = 0;
 
@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (Camera.main.GetComponent<CameraController>().GetCameraEvent()) return;
+
         if (hp > 0)
         {
             MoveEnemy();

@@ -38,6 +38,12 @@ public class Upgrade : MonoBehaviour
 
     public void SpeedUpButton()
     {
+        if (GameManager.instance.accessMoney < turret.speedUpPrice)
+        {
+            print("돈부족!");
+            return;
+        }
+
         GameManager.instance.accessMoney -= turret.speedUpPrice;
         turret.SpeedUp();
         node = null;
@@ -47,6 +53,12 @@ public class Upgrade : MonoBehaviour
 
     public void DamageUpButton()
     {
+        if (GameManager.instance.accessMoney < turret.damageUpPrice)
+        {
+            print("돈부족!");
+            return;
+        }
+
         GameManager.instance.accessMoney -= turret.damageUpPrice;
         turret.DamageUP();
         node = null;

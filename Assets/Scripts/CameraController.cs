@@ -6,19 +6,17 @@ public class CameraController : MonoBehaviour
 {
     private bool doMoveMent = true;
     private bool cameraEvent = false;
-    private bool isEvent = false;
+    private bool returnCamera = false;
+    private float returnTimer = 0;
 
     public float panSpeed = 30f;
     public float pansBorderThickness = 10f;
     public float minY = 10f;
     public float maxY = 80f;
 
-    public Transform enemyTransform;
-    public Transform target; // 타겟 위치
-    public float firingAngle = 45.0f;
-    public float gravity = 7.8f;
-
-    public Transform Projectile; // 발사체 위치
+    public Transform enemyTransform; // 카메라 LookAt 객체
+    public Transform target; // 카메라 이동 위치
+    public Transform returnTransform;
 
 
     void Update()
@@ -76,46 +74,28 @@ public class CameraController : MonoBehaviour
 
         else
         {
-            if(!isEvent)
+            if (!returnCamera)
             {
-                isEvent = true;
-                StartCoroutine(SimulateProjectile());
+                transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * 1.5f);
+                transform.LookAt(enemyTransform);
+
+                returnTimer += Time.deltaTime;
+
+                if (returnTimer > 4)
+                    returnCamera = true;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, returnTransform.position, Time.deltaTime * 1.5f);
+                transform.rotation = returnTransform.rotation;
+
+                if (Vector3.Distance(transform.position,returnTransform.position) < 0.3f)
+                    cameraEvent = false;
             }
         }
     }
 
+    public void SetCameraEvent(bool _arg) { cameraEvent = _arg; }
+    public bool GetCameraEvent() { return cameraEvent; }
 
-    IEnumerator SimulateProjectile()
-    {
-        Projectile.position = transform.position;
-
-        float target_Distance = Vector3.Distance(Projectile.position, target.position);
-
-        float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
-
-        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
-        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
-
-
-        float flightDuration = target_Distance / Vx;
-
-        //Projectile.rotation = Quaternion.LookRotation(target.position - Projectile.position);
-
-        float elapse_time = 0;
-
-        while (elapse_time < flightDuration)
-        {
-            
-            transform.LookAt(enemyTransform);
-
-            Projectile.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
-
-            elapse_time += Time.deltaTime * 1.2f;
-
-            yield return null;
-        }
-
-        isEvent = false;
-        cameraEvent = false;
-    }
 }

@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     private int money = 50;
 
     public int GunUnitSpawnMoney = 5;
-    public int MagicUnitSpawnMoney = 7;
+    public int MagicUnitSpawnMoney = 6;
+    public int CannonUnitSpawnMoney = 7;
 
     public GameObject gunUnit;
     public GameObject magicUnit;

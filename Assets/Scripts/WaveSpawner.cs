@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +37,6 @@ public class WaveSpawner : MonoBehaviour
     {
         if (waveIndex < ed.getWaveCount())
         {
-            spawnTimerText.text = Mathf.Round(spawnTime).ToString();
             waveText.text = waveIndex.ToString();
 
             if (spawnTime <= 0f)
@@ -53,22 +53,22 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        waveIndex++;
 
-        for(int i=0; i < waveIndex; i++)
+        for(int i=0; i < ed.getSpawnCount(waveIndex); i++)
         {
             SpawnEnemy();
             yield return new WaitForSeconds(1f);
         }
 
+        waveIndex++;
         startSpawn = false;
     }
 
     void SpawnEnemy()
     {
-        ed.getEnemyType(waveIndex - 1);
+        ed.getEnemyType(waveIndex);
 
-        switch (ed.getEnemyType(waveIndex-1))
+        switch (ed.getEnemyType(waveIndex))
         {
             case Enemy.EnemyType.Nomal:
                 Instantiate(normalEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
@@ -82,6 +82,11 @@ public class WaveSpawner : MonoBehaviour
             case Enemy.EnemyType.Boss:
                 Instantiate(bossEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 break;
+        }
+
+        if(waveIndex == ed.getWaveCount() -1)
+        {
+            Camera.main.GetComponent<CameraController>().SetCameraEvent(true);
         }
     }
 

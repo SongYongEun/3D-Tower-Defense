@@ -16,6 +16,8 @@ public class Fly : Enemy
 
     void Update()
     {
+        if (Camera.main.GetComponent<CameraController>().GetCameraEvent()) return;
+
         if (hp > 0)
         {
             MoveEnemy();

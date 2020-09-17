@@ -13,14 +13,15 @@ public class CannonBall : MonoBehaviour
     public Transform Projectile; // 발사체 위치
 
 
-    void Start()
-    {
-        StartCoroutine(SimulateProjectile());
-    }
+    //void Start()
+    //{
+    //    StartCoroutine(SimulateProjectile());
+    //}
 
     public void Seek(Transform _target)
     {
         target = _target;
+        StartCoroutine(SimulateProjectile());
     }
 
 
@@ -28,7 +29,7 @@ public class CannonBall : MonoBehaviour
     {
         Projectile.position = transform.position;
 
-        float target_Distance = Vector3.Distance(Projectile.position, target.position);
+        float target_Distance = Vector3.Distance(Projectile.position, target.position + Vector3.forward);
 
         float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
 
@@ -44,12 +45,14 @@ public class CannonBall : MonoBehaviour
 
         while (elapse_time < flightDuration)
         {
+
             Projectile.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
 
             elapse_time += Time.deltaTime;
 
             yield return null;
         }
-        Destroy(gameObject);
+
+        CannonBallObjectPool.ReturnObject(gameObject);
     }
 }

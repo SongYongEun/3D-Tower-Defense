@@ -13,6 +13,8 @@ public class MagicUnit : Unit
 
     void Start()
     {
+        AudioManager.instance.AddEffectAudio(gameObject.GetComponent<AudioSource>());
+
         isSpeedUpgrade = false;
         isDamageUpgrade = false;
         damage = 1;
@@ -49,6 +51,8 @@ public class MagicUnit : Unit
 
     void Update()
     {
+        if (Camera.main.GetComponent<CameraController>().GetCameraEvent()) return;
+
         if (target == null)
         {
             lazerEffect.SetActive(false);
@@ -63,6 +67,7 @@ public class MagicUnit : Unit
         if (fireTimer <= 0f)
         {
             isAttack = true;
+            gameObject.GetComponent<AudioSource>().Play();
             ani.SetTrigger("Attack");
             fireTimer = fireRate;
         }

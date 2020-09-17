@@ -14,6 +14,7 @@ public class Node : MonoBehaviour
 
     private void OnMouseDown()
     {
+        GameManager.instance.gameObject.GetComponent<AudioSource>().Play();
         if(turret != null)
         {
             print("들어옴");

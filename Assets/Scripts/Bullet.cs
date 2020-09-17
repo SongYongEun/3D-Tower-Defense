@@ -17,9 +17,11 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        if(target == null)
+        if (Camera.main.GetComponent<CameraController>().GetCameraEvent()) return;
+
+        if (target == null)
         {
-            Destroy(gameObject);
+            BulletObjectPool.ReturnObject(gameObject);
             return;
         }
 
@@ -42,13 +44,7 @@ public class Bullet : MonoBehaviour
         GameObject effectIns = Instantiate(ImpactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 2f);
 
-
-        //if (target.GetComponent<Enemy>().hp <= 0)
-        //{
-        //    GameManager.instance.accessMoney++;
-        //    Destroy(target.gameObject);
-        //}
-        Destroy(gameObject);
+        BulletObjectPool.ReturnObject(gameObject);
     }
 
     public void SetBulletDamage(float _damage) { damage = _damage; }

@@ -8,7 +8,7 @@ public class JsonManager : MonoBehaviour
 {
     // 싱글톤 사용
     public static JsonManager instance;
-
+    private EnemyData ed;
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -19,11 +19,11 @@ public class JsonManager : MonoBehaviour
     {
         //EnemyData enemyData = new EnemyData();
         //string jsonData = JsonUtility.ToJson(enemyData);
-        //CreateJsonFile(Application.dataPath + "/JsonData/", "1-StageData",jsonData);
+        //CreateJsonFile(Application.dataPath + "/JsonData/", "1-StageData", jsonData);
 
-        //var jsonData = LoadJsonFile<EnemyData>(Application.dataPath + "/JsonData/", "1-StageData");
+        //ed = LoadJsonFile<EnemyData>(Application.dataPath + "/JsonData/", "1-StageData");
 
-        //jsonData.Print();
+        //ed.Print();
     }
 
 
