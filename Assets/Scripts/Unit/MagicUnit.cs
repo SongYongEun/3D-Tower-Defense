@@ -3,32 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using DigitalRuby.LightningBolt;
 
-public class MagicUnit : MonoBehaviour
+public class MagicUnit : Unit
 {
-    private Transform target;
-
-    [Header("Atrributes")]
-
-    public float range = 15f;
-    public float fireRate = 1f;
-    private float fireTimer = 0f;
-
-    [Header("Setup")]
-
-    public string enemyTag = "Enemy";
-    public float turnSpeed = 10f;
-
+    [Header("Only MagicUnit")]
+    public float attackDelay = 0.2f;
+    private bool isAttack;
     public GameObject lazerEffect;
-
-    Animator ani;
+    private IEnumerator coroutine;
 
     void Start()
     {
+        isSpeedUpgrade = false;
+        isDamageUpgrade = false;
+        damage = 1;
         ani = GetComponent<Animator>();
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        if(!isAttack)
+        {
+            InvokeRepeating("UpdateTarget", 0f, 1f);
+        }
+        coroutine = attackCoroutine(damage, attackDelay);
     }
 
-    void UpdateTarget()
+    override protected void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         float shortestsDistance = Mathf.Infinity;
@@ -46,7 +42,7 @@ public class MagicUnit : MonoBehaviour
 
         if (nearestEnemy != null && shortestsDistance <= range)
         {
-            target = nearestEnemy.transform;
+            target = nearestEnemy;
         }
    
     }
@@ -59,18 +55,20 @@ public class MagicUnit : MonoBehaviour
             return;
         }
 
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = target.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
         if (fireTimer <= 0f)
         {
+            isAttack = true;
             ani.SetTrigger("Attack");
-            fireTimer = 1f / fireRate;
+            fireTimer = fireRate;
         }
 
-        fireTimer -= Time.deltaTime;
+        if (!isAttack)
+            fireTimer -= Time.deltaTime;
 
     }
 
@@ -80,6 +78,8 @@ public class MagicUnit : MonoBehaviour
     {
         // 번개 이펙트 ON
         if (target == null) return;
+        StartCoroutine(coroutine);
+        isAttack = true;
         GameObject temp = target.gameObject;
         lazerEffect.GetComponent<LightningBoltScript>().EndObject = temp;
         lazerEffect.SetActive(true);
@@ -87,23 +87,26 @@ public class MagicUnit : MonoBehaviour
 
     public void LazerOff()
     {
-        lazerEffect.GetComponent<LightningBoltScript>().EndObject = null;
+        StopCoroutine(coroutine);
+        isAttack = false;
         lazerEffect.SetActive(false);
-        fireTimer = 1f / fireRate;
+        lazerEffect.GetComponent<LightningBoltScript>().EndObject = null;
         target = null;
     }
 
 
     IEnumerator attackCoroutine(float _damage, float _delayTime)
     {
-        
-        yield return new WaitForSeconds(_delayTime);
-    }
-
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
+        while (true)
+        {
+            target.GetComponent<Enemy>().hp -= _damage;
+            //if (target.GetComponent<Enemy>().hp <= 0)
+            //{
+            //    Destroy(target);
+            //    target = null;
+            //    StopCoroutine(coroutine);
+            //}
+            yield return new WaitForSeconds(_delayTime);
+        }
     }
 }

@@ -11,7 +11,7 @@ public class EnemyData
         Enemy.EnemyType et;
 
         // 1 WAVE
-        et = Enemy.EnemyType.Normal;
+        et = Enemy.EnemyType.Nomal;
         enemyData.Add(et);
 
         // 2 WAVE

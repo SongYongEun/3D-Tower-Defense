@@ -16,19 +16,33 @@ public class Fly : Enemy
 
     void Update()
     {
-        MoveEnemy();
+        if (hp > 0)
+        {
+            MoveEnemy();
+            UpDown();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
 
-        if(transform.position.y > maxHeight)
+        slider.value = hp / maxHp;
+    }
+
+    void UpDown()
+    {
+        if (transform.position.y > maxHeight)
         {
             isUp = false;
         }
 
-        if(transform.position.y < minHeight)
+        if (transform.position.y < minHeight)
         {
             isUp = true;
         }
 
-        if(!isUp)
+        if (!isUp)
         {
             transform.position -= new Vector3(0, 0.01f, 0);
         }
@@ -36,8 +50,6 @@ public class Fly : Enemy
         {
             transform.position += new Vector3(0, 0.01f, 0);
         }
-
-        slider.value = hp / maxHp;
     }
 
     protected override void MoveEnemy() 
@@ -48,7 +60,7 @@ public class Fly : Enemy
 
         if (Vector3.Distance(endPos, transform.position) < 0.2f) 
         {
-            Debug.Log("ADD HP Minus Function");
+            GameManager.instance.accessLife -= 1;
             Destroy(gameObject);
         }
     }

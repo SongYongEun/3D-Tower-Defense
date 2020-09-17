@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private GameObject target;
 
-    public int damage = 2;
+    private float damage = 2;
     public float speed = 70f;
     public GameObject ImpactEffect;
 
@@ -43,12 +43,13 @@ public class Bullet : MonoBehaviour
         Destroy(effectIns, 2f);
 
 
-        if (target.GetComponent<Enemy>().hp <= 0)
-        {
-            BuildManager.instance.accessMoney++;
-            BuildManager.instance.moneyText.text = BuildManager.instance.accessMoney.ToString();
-            Destroy(target.gameObject);
-        }
+        //if (target.GetComponent<Enemy>().hp <= 0)
+        //{
+        //    GameManager.instance.accessMoney++;
+        //    Destroy(target.gameObject);
+        //}
         Destroy(gameObject);
     }
+
+    public void SetBulletDamage(float _damage) { damage = _damage; }
 }

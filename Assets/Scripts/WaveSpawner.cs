@@ -9,6 +9,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform normalEnemyPrefab;
     public Transform hardEnemyPrefab;
     public Transform flyEnemyPrefab;
+    public Transform bossEnemyPrefab;
 
     [Header("Atrributes")]
     public Transform spawnPoint;
@@ -69,7 +70,7 @@ public class WaveSpawner : MonoBehaviour
 
         switch (ed.getEnemyType(waveIndex-1))
         {
-            case Enemy.EnemyType.Normal:
+            case Enemy.EnemyType.Nomal:
                 Instantiate(normalEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 break;
             case Enemy.EnemyType.Flying:
@@ -79,7 +80,7 @@ public class WaveSpawner : MonoBehaviour
                 Instantiate(hardEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 break;
             case Enemy.EnemyType.Boss:
-                Instantiate(normalEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                Instantiate(bossEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 break;
         }
     }

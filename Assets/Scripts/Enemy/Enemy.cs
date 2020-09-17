@@ -5,13 +5,11 @@ public class Enemy : MonoBehaviour
 {
     public enum EnemyType
     {
-        Normal,
+        Nomal,
         Flying,
         Hard,
         Boss
     }
-
-    [SerializeField]
     public float maxHp = 10f;
     public float hp = 10f;
     public float speed = 10f;
@@ -20,6 +18,7 @@ public class Enemy : MonoBehaviour
     private EnemyType et;
 
     private Transform target;
+
     private int wavePointIndex = 0;
 
     private void Start()
@@ -30,7 +29,14 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        MoveEnemy();
+        if (hp > 0)
+        {
+            MoveEnemy();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         slider.value = hp / maxHp;
     }
@@ -57,8 +63,7 @@ public class Enemy : MonoBehaviour
         // 마지막 포인트일경우 삭제
         if(wavePointIndex >= WayPoints.points.Length - 1)
         {
-            // HP 감소 함수 추가해야함
-            Debug.Log("ADD HP Minus Function");
+            GameManager.instance.accessLife -= 1;
             Destroy(gameObject);
             return;
         }
@@ -67,15 +72,11 @@ public class Enemy : MonoBehaviour
         target = WayPoints.points[wavePointIndex];
     }
 
-    public void Die()
-    {
-
-    }
-
     public void Init(EnemyType _et, float _hp, float _speed)
     {
         et = _et;
         hp = _hp;
         speed = _speed;
     }
+
 }

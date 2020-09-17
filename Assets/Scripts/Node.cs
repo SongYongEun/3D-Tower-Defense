@@ -7,6 +7,7 @@ public class Node : MonoBehaviour
     public Color hoverColor;
     public Vector3 positionOffset;
     public GameObject Shop;
+    public GameObject Upgrade;
 
     private GameObject turret;
     public GameObject selectFx;
@@ -15,18 +16,23 @@ public class Node : MonoBehaviour
     {
         if(turret != null)
         {
-            print("Can't build there!");
-            return;
+            print("들어옴");
+            Upgrade.SetActive(true);
+            Upgrade.GetComponent<Upgrade>().NodeSet(transform);
         }
-
-        Shop.SetActive(true);
-        selectFx.SetActive(true);
-        Shop.GetComponent<Shop>().NodeSet(transform);
+        else
+        {
+            Shop.SetActive(true);
+            selectFx.SetActive(true);
+            Shop.GetComponent<Shop>().NodeSet(transform);
+        }
     }
 
     public void turretSet(GameObject _turret)
     {
         turret = _turret;
     }
+
+    public GameObject GetTurret() { return turret; }
 
 }
