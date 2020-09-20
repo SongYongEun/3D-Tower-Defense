@@ -25,6 +25,7 @@ public class Fly : Enemy
         }
         else
         {
+            GameManager.instance.accessMoney += dropMoney;
             Destroy(gameObject);
         }
         

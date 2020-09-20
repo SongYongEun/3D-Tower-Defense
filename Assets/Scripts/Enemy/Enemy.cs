@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public float maxHp = 10f;
     public float hp = 10f;
     public float speed = 10f;
+    public int dropMoney = 5;
     public Slider slider;
 
     private EnemyType et;
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            GameManager.instance.accessMoney += dropMoney;
             Destroy(gameObject);
         }
 

@@ -69,6 +69,7 @@ public class Upgrade : MonoBehaviour
     public void SellButton()
     {
         GameManager.instance.accessMoney += turret.sellPrice;
+        AudioManager.instance.EraseAudio(turret.gameObject.GetComponent<AudioSource>());
         Destroy(turret.gameObject);
         node = null;
         turret = null;

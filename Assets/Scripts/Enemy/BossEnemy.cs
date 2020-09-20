@@ -25,6 +25,8 @@ public class BossEnemy : Enemy
         else
         {
             AudioManager.instance.EraseAudio(gameObject.GetComponent<AudioSource>());
+
+            GameManager.instance.accessMoney += dropMoney;
             Destroy(gameObject);
         }
 

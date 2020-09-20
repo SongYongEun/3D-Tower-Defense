@@ -19,7 +19,6 @@ public class WaveSpawner : MonoBehaviour
     private float spawnTime = 2f;
     
     [Header("UI Set")]
-    public Text spawnTimerText;
     public Text waveText;
 
     private int waveIndex = 0;
@@ -37,7 +36,7 @@ public class WaveSpawner : MonoBehaviour
     {
         if (waveIndex < ed.getWaveCount())
         {
-            waveText.text = waveIndex.ToString();
+            waveText.text = (waveIndex+1).ToString();
 
             if (spawnTime <= 0f)
             {
@@ -60,8 +59,9 @@ public class WaveSpawner : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        waveIndex++;
         startSpawn = false;
+        yield return new WaitForSeconds(3f);
+        waveIndex++;
     }
 
     void SpawnEnemy()
