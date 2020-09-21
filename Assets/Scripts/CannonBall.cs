@@ -30,29 +30,29 @@ public class CannonBall : MonoBehaviour
     {
         Projectile.position = transform.position;
 
-        float target_Distance = Vector3.Distance(Projectile.position, target.position + Vector3.forward);
+        float distance = Vector3.Distance(Projectile.position, target.position + Vector3.forward);
 
-        float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
+        float velocity = distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
 
-        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
-        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
+        float Vx = Mathf.Sqrt(velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
+        float Vy = Mathf.Sqrt(velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
 
-
-        float flightDuration = target_Distance / Vx;
+        float flightDuration = distance / Vx;
 
         Projectile.rotation = Quaternion.LookRotation(target.position - Projectile.position);
 
-        float elapse_time = 0;
+        float elapseTime = 0;
 
-        while (elapse_time < flightDuration)
+        while (elapseTime < flightDuration)
         {
 
-            Projectile.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
+            Projectile.Translate(0, (Vy - (gravity * elapseTime)) * Time.deltaTime, Vx * Time.deltaTime);
 
-            elapse_time += Time.deltaTime;
+            elapseTime += Time.deltaTime;
 
             yield return null;
         }
+
         StartCoroutine(ColiderActive());
     }
 

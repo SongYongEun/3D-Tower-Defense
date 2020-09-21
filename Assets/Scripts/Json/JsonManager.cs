@@ -17,13 +17,9 @@ public class JsonManager : MonoBehaviour
 
     private void Start()
     {
-        //EnemyData enemyData = new EnemyData();
-        //string jsonData = JsonUtility.ToJson(enemyData);
-        //CreateJsonFile(Application.dataPath + "/JsonData/", "1-StageData", jsonData);
-
-        //ed = LoadJsonFile<EnemyData>(Application.dataPath + "/JsonData/", "1-StageData");
-
-        //ed.Print();
+        EnemyData enemyData = new EnemyData();
+        string jsonData = JsonUtility.ToJson(enemyData);
+        CreateJsonFile(Application.dataPath + "/JsonData/", "3-StageData", jsonData);
     }
 
 
@@ -44,10 +40,4 @@ public class JsonManager : MonoBehaviour
         string jsonData = Encoding.UTF8.GetString(data);
         return JsonUtility.FromJson<T>(jsonData);
     }
-
-    //T LoadJsonFile<T>(string loadPath, string fileName)
-    //{
-    //    string jsonData = Encoding.
-    //    return JsonUtility.FromJson<T>(string a);
-    //}
 }

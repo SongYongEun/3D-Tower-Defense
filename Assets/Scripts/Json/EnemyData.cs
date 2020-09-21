@@ -19,18 +19,36 @@ public class EnemyData
         spawnCount.Add(ec);
 
         // 2 WAVE
-        et = Enemy.EnemyType.Flying;
+        et = Enemy.EnemyType.Nomal;
         enemyData.Add(et);
         ec = 3;
         spawnCount.Add(ec);
 
         // 3 WAVE
-        et = Enemy.EnemyType.Hard;
+        et = Enemy.EnemyType.Flying;
         enemyData.Add(et);
         ec = 3;
         spawnCount.Add(ec);
 
         // 4 WAVE
+        et = Enemy.EnemyType.Flying;
+        enemyData.Add(et);
+        ec = 6;
+        spawnCount.Add(ec);
+
+        // 5 WAVE
+        et = Enemy.EnemyType.Hard;
+        enemyData.Add(et);
+        ec = 5;
+        spawnCount.Add(ec);
+
+        // 6 WAVE
+        et = Enemy.EnemyType.Hard;
+        enemyData.Add(et);
+        ec = 4;
+        spawnCount.Add(ec);
+
+        // 7 WAVE
         et = Enemy.EnemyType.Boss;
         enemyData.Add(et);
         ec = 1;
@@ -48,5 +66,16 @@ public class EnemyData
 
     public int getWaveCount() { return enemyData.Count; } // 웨이브 개수
     public int getSpawnCount(int _waveNum) { return spawnCount[_waveNum]; }
+    public int getTotalCount()
+    {
+        int total = 0;
+
+        for(int i=0; i < enemyData.Count; i++)
+        {
+            total += spawnCount[i];
+        }
+
+        return total;
+    }
     public Enemy.EnemyType getEnemyType(int _index) { return enemyData[_index]; }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -29,7 +30,18 @@ public class WaveSpawner : MonoBehaviour
     {
         jm = JsonManager.instance.GetComponent<JsonManager>();
 
-        ed = jm.LoadJsonFile<EnemyData>(Application.dataPath + "/JsonData/", "1-StageData");
+        if(Loading.sceneName == "Stage1")
+        {
+             ed = jm.LoadJsonFile<EnemyData>(Application.dataPath + "/JsonData/", "1-StageData");
+        }
+        else if (Loading.sceneName == "Stage2")
+        {
+            ed = jm.LoadJsonFile<EnemyData>(Application.dataPath + "/JsonData/", "2-StageData");
+        }
+        else if (Loading.sceneName == "Stage3")
+        {
+            ed = jm.LoadJsonFile<EnemyData>(Application.dataPath + "/JsonData/", "3-StageData");
+        }
     }
 
     private void Update()

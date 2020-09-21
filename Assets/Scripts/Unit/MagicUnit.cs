@@ -105,12 +105,7 @@ public class MagicUnit : Unit
         while (true)
         {
             target.GetComponent<Enemy>().hp -= _damage;
-            //if (target.GetComponent<Enemy>().hp <= 0)
-            //{
-            //    Destroy(target);
-            //    target = null;
-            //    StopCoroutine(coroutine);
-            //}
+
             yield return new WaitForSeconds(_delayTime);
         }
     }
