@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour
     public int damageUpPrice = 5;
     public float range = 15f;
     public float fireRate = 1f;
+    public GameObject upgradeParticle;
     protected float damage;
     protected float fireTimer = 0f;
 
@@ -59,12 +60,16 @@ public class Unit : MonoBehaviour
 
     public void SpeedUp()
     {
+        upgradeParticle.GetComponent<ParticleSystem>().Stop();
+        upgradeParticle.GetComponent<ParticleSystem>().Play();
         isSpeedUpgrade = true;
         fireRate *= 0.5f;
     }
 
     public void DamageUP()
     {
+        upgradeParticle.GetComponent<ParticleSystem>().Stop();
+        upgradeParticle.GetComponent<ParticleSystem>().Play();
         isDamageUpgrade = true;
         damage *= 1.5f;
     }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
@@ -81,6 +83,15 @@ public class Enemy : MonoBehaviour
         et = _et;
         hp = _hp;
         speed = _speed;
+    }
+
+    public IEnumerator Slow(float time)
+    {
+        speed *= 0.5f;
+
+        yield return new WaitForSeconds(time);
+
+        speed *= 2.0f;
     }
 
 }

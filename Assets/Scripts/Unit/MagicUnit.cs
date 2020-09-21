@@ -67,7 +67,6 @@ public class MagicUnit : Unit
         if (fireTimer <= 0f)
         {
             isAttack = true;
-            gameObject.GetComponent<AudioSource>().Play();
             ani.SetTrigger("Attack");
             fireTimer = fireRate;
         }
@@ -83,6 +82,7 @@ public class MagicUnit : Unit
     {
         // 번개 이펙트 ON
         if (target == null) return;
+        gameObject.GetComponent<AudioSource>().Play();
         StartCoroutine(coroutine);
         isAttack = true;
         GameObject temp = target.gameObject;

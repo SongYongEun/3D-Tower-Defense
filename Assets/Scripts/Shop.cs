@@ -77,6 +77,44 @@ public class Shop : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void SwordUnitButtonClick()
+    {
+        if (node == null) return;
+
+        if (GameManager.instance.accessMoney < GameManager.instance.SwordUnitSpawnMoney)
+        {
+            print("돈부족!");
+            return;
+        }
+
+        GameManager.instance.accessMoney -= GameManager.instance.SwordUnitSpawnMoney;
+
+        GameObject turretToBuild = Instantiate(GameManager.instance.swordUnit, node.position, node.rotation);
+
+        node.GetComponent<Node>().turretSet(turretToBuild);
+        node.GetComponent<Node>().selectFx.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    public void IceUnitButtonClick()
+    {
+        if (node == null) return;
+
+        if (GameManager.instance.accessMoney < GameManager.instance.IceUnitSpawnMoney)
+        {
+            print("돈부족!");
+            return;
+        }
+
+        GameManager.instance.accessMoney -= GameManager.instance.IceUnitSpawnMoney;
+
+        GameObject turretToBuild = Instantiate(GameManager.instance.iceUnit, node.position, node.rotation);
+
+        node.GetComponent<Node>().turretSet(turretToBuild);
+        node.GetComponent<Node>().selectFx.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
     public void CancleButtonClick()
     {
         node.GetComponent<Node>().selectFx.SetActive(false);

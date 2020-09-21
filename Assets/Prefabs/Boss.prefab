@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 5269183987220148929}
   - component: {fileID: -9212554111768635081}
   - component: {fileID: 6143724839715159783}
+  - component: {fileID: 5824738683629925718}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -412,6 +413,7 @@ MonoBehaviour:
   maxHp: 100
   hp: 100
   speed: 2
+  dropMoney: 5
   slider: {fileID: 4779094400924676968}
 --- !u!82 &6143724839715159783
 AudioSource:
@@ -509,6 +511,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &5824738683629925718
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269183987220148928}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 4, z: 4}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &5269183987243827561
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,9 +17,9 @@ public class Node : MonoBehaviour
         GameManager.instance.gameObject.GetComponent<AudioSource>().Play();
         if(turret != null)
         {
-            print("들어옴");
             Upgrade.SetActive(true);
             Upgrade.GetComponent<Upgrade>().NodeSet(transform);
+
         }
         else
         {

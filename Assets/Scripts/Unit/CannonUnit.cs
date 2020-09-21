@@ -6,6 +6,7 @@ public class CannonUnit : Unit
 {
     [Header("Only CannonUnit")]
     public GameObject cannonPrefab;
+    public GameObject shootEffect;
     public Transform cannonPoint;
 
     // Start is called before the first frame update
@@ -45,6 +46,8 @@ public class CannonUnit : Unit
     void CannonShoot()
     {
         gameObject.GetComponent<AudioSource>().Play();
+        shootEffect.GetComponent<ParticleSystem>().Stop();
+        shootEffect.GetComponent<ParticleSystem>().Play();
         GameObject cannonGO = CannonBallObjectPool.GetObject();
         cannonGO.transform.position = cannonPoint.position;
         CannonBall cannonBall = cannonGO.GetComponent<CannonBall>();

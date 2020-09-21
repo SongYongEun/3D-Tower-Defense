@@ -22,7 +22,6 @@ public class TitleManager : MonoBehaviour
         else
         {
             StageUI.SetActive(true);
-            //SceneManager.LoadScene("Stage1");
         }
     }
 
@@ -44,7 +43,6 @@ public class TitleManager : MonoBehaviour
     {
         string ButtonName = EventSystem.current.currentSelectedGameObject.name;
 
-        Debug.Log(ButtonName);
         Loading.sceneName = ButtonName;
         SceneManager.LoadScene("LoadingScene");
     }

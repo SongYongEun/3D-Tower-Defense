@@ -14,6 +14,7 @@ public class BossEnemy : Enemy
 
         StartCoroutine(SoundPlay());
     }
+
     void Update()
     {
         if (Camera.main.GetComponent<CameraController>().GetCameraEvent()) return;
@@ -24,6 +25,10 @@ public class BossEnemy : Enemy
         }
         else
         {
+            Time.timeScale = 0;
+            EndUI.instance.clear.SetActive(true);
+            EndUI.instance.lose.SetActive(false);
+
             AudioManager.instance.EraseAudio(gameObject.GetComponent<AudioSource>());
 
             GameManager.instance.accessMoney += dropMoney;

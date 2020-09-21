@@ -6,9 +6,10 @@ public class CannonBall : MonoBehaviour
 {
     private float damage = 2;
     private float speed = 2;
-    public Transform target; // 타겟 위치
+    private Transform target; // 타겟 위치
     public float firingAngle = 45.0f;
     public float gravity = 5.8f;
+    public GameObject colEffect;
 
     public Transform Projectile; // 발사체 위치
 
@@ -52,7 +53,28 @@ public class CannonBall : MonoBehaviour
 
             yield return null;
         }
+        StartCoroutine(ColiderActive());
+    }
 
+    IEnumerator ColiderActive()
+    {
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        GameObject effectIns = Instantiate(colEffect, transform.position, transform.rotation);
+        Destroy(effectIns, 2f);
+        yield return new WaitForSeconds(0.2f);
+        gameObject.GetComponent<SphereCollider>().enabled = true;
+        yield return new WaitForSeconds(0.3f);
+        gameObject.GetComponent<SphereCollider>().enabled = false;
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
         CannonBallObjectPool.ReturnObject(gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<Enemy>().hp -= damage;
+        }
+    }
+
 }
